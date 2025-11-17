@@ -35,7 +35,7 @@
             private readonly LinkedList<(int key, int value)> _links;
 
             /// <summary>
-            /// 1. 建構式
+            /// 1. 建構式 - 快取策略容量上限
             /// </summary>
             public LRUCache(int capacity)
             {
