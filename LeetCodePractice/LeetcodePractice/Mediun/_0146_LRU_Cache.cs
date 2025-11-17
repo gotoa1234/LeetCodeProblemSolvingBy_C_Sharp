@@ -34,13 +34,19 @@
             private readonly Dictionary<int, LinkedListNode<(int key, int value)>> _cache;
             private readonly LinkedList<(int key, int value)> _links;
 
+            /// <summary>
+            /// 1. 建構式
+            /// </summary>
             public LRUCache(int capacity)
             {
-                _capacity = capacity;//1. 記錄 LRU 快取上限
+                _capacity = capacity;//1-2. 記錄 LRU 快取上限
                 _links = new LinkedList<(int key, int value)>();
                 _cache = new Dictionary<int, LinkedListNode<(int key, int value)>>();
             }
 
+            /// <summary>
+            /// 2. 取值的處理
+            /// </summary>
             public int Get(int key)
             {
                 if (!_cache.ContainsKey(key))
@@ -54,12 +60,15 @@
                 return _cache[key].Value.value;// 2-5. 返回結果
             }
 
+            /// <summary>
+            /// 3. 存值的處理
+            /// </summary>
             public void Put(int key, int value)
             {
-                // 3. 是否存在
+                // 3-1. 是否存在
                 if (_cache.TryGetValue(key, out LinkedListNode<(int key, int value)>? node))
                 {
-                    // 3-1. 存在時，將權重放到最前面，同個 Key 可能 Value 已經不同
+                    // 3-2. 存在時，將權重放到最前面，同個 Key 可能 Value 已經不同
                     node.Value = (key, value);
                     _links.Remove(node);// 3-2. 權重往前
                     _links.AddFirst(node);                    
