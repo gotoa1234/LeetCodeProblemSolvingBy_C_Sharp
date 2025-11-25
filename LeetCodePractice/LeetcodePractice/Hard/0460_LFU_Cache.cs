@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static LeetcodePractice.Hard._0460_LFU_Cache;
-using static LeetcodePractice.Mediun._0146_LRU_Cache;
-
-namespace LeetcodePractice.Hard
+﻿namespace LeetcodePractice.Hard
 {
     public class _0460_LFU_Cache
     {
@@ -73,20 +65,25 @@ namespace LeetcodePractice.Hard
                 if (_capacity == 0) 
                     return;
 
-                // 2-2. 查詢是否
+                // 2-2. 查詢時，已存在 Key 的情況
                 if (_keyToNode.ContainsKey(key))
                 {
+                    // 2-3-1. 一定要刷新 Key , Value 因為相同的Key有可能不同的 Value
                     var node = _keyToNode[key];
                     node.Value = value;
+
+                    // 2-3-2. 增加此 Key 的頻率
                     UpdateFrequency(key, node);
                 }
                 else
                 {
+                    // 2-4-1. 如果當前的 Key 已經達到上限，那要進行 LFU 頻率最差的移除
                     if (_keyToNode.Count >= _capacity)
                     {
                         RemoveLFU();
                     }
 
+                    
                     var newNode = new Node
                     {
                         Key = key,
