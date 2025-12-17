@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LeetcodePractice.Easy
+﻿namespace LeetcodePractice.Easy
 {
     public class _0796_Prime_Number_of_Set_Bits_in_Binary_Representation
     {
@@ -29,8 +22,7 @@ namespace LeetcodePractice.Easy
                 return ("abcde", "abced");
             }
         }
-
-
+        
 
         public bool RotateString(string s, string goal)
         {
@@ -38,7 +30,15 @@ namespace LeetcodePractice.Easy
             {
                 return false;
             }                      
-            return ZAlgorithmSearch(s + s, goal);
+            // C# - 標準解法
+            return (s+s).Contains(goal);
+            
+            // 演算髮姐法 - z 字串演算法
+            // 時間複雜度: O(M + N)
+            // 空間複雜度: O(M + N)            
+            // M = 變數(模式長度可變) LeetCode 的變數 goal   
+            // N = 變數(文本長度可變) LeetCode 的變數 s
+            //return ZAlgorithmSearch(s + s, goal);
         }
 
         private bool ZAlgorithmSearch(string text, string pattern)
