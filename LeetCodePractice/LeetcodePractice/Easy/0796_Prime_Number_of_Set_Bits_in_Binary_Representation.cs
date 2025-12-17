@@ -11,6 +11,9 @@
             data = GetData2();
             Console.WriteLine(this.RotateString(data.s, data.goal));
 
+            data = GetData3();
+            Console.WriteLine(this.RotateString(data.s, data.goal));
+
             // Closer Data
             (string s, string goal) GetData1()
             {
@@ -21,9 +24,13 @@
             {
                 return ("abcde", "abced");
             }
+
+            (string s, string goal) GetData3()
+            {
+                return ("aaa","aaaa");
+            }
         }
         
-
         public bool RotateString(string s, string goal)
         {
             if (s.Length != goal.Length)
@@ -31,14 +38,14 @@
                 return false;
             }                      
             // C# - 標準解法
-            return (s+s).Contains(goal);
+            //return (s+s).Contains(goal);
             
             // 演算髮姐法 - z 字串演算法
             // 時間複雜度: O(M + N)
             // 空間複雜度: O(M + N)            
             // M = 變數(模式長度可變) LeetCode 的變數 goal   
             // N = 變數(文本長度可變) LeetCode 的變數 s
-            //return ZAlgorithmSearch(s + s, goal);
+            return ZAlgorithmSearch(s, goal);
         }
 
         private bool ZAlgorithmSearch(string text, string pattern)
@@ -59,7 +66,7 @@
             int zBoxLeft = 0, zBoxRight = 0;
 
             // 4. 計算 zBox 陣列 從位置 1 開始（位置 0 可跳過，自己跟自己）
-            for (int index = modelLength + 1; index < searchLength; index++)
+            for (int index = 1; index < searchLength; index++)
             {
                 // 5-1. Index 在 zBox 之外 (index > zBoxRight)
                 if (index > zBoxRight)
@@ -82,8 +89,14 @@
                     {
                         zBox[index] = zBox[offsetIndex];
                     }
-                    else// 5-2-3. 不可重用的狀況
+                    else// 5-2-3. 不可重用的狀況 
                     {
+                        // 補充: LeetCode 不會進入此，但是 Z 演算法的完整實作必須包含它
+                        // 進入此的條件有以下：
+                        // - 1. 當 pattern 長度小於 text 時
+                        // - 2. 且存在重複或週期性結構       
+                        // 例如: pattern = "aaa", text = "aaaa"
+
                         zBoxLeft = index;
 
                         // 5-2-4. 進入匹配
