@@ -40,12 +40,12 @@
             // C# - 標準解法
             //return (s+s).Contains(goal);
             
-            // 演算髮姐法 - z 字串演算法
+            // 演算法解法 - z 字串演算法
             // 時間複雜度: O(M + N)
             // 空間複雜度: O(M + N)            
             // M = 變數(模式長度可變) LeetCode 的變數 goal   
             // N = 變數(文本長度可變) LeetCode 的變數 s
-            return ZAlgorithmSearch(s, goal);
+            return ZAlgorithmSearch(s+s, goal);
         }
 
         private bool ZAlgorithmSearch(string text, string pattern)
